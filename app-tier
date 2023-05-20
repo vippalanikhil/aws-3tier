@@ -1,0 +1,24 @@
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+source ~/.bashrc
+
+nvm install 16
+nvm use 16
+
+npm install -g pm2   
+
+cd ~/
+aws s3 cp s3://BUCKET_NAME/app-tier/ app-tier --recursive
+
+cd ~/app-tier
+npm install
+pm2 start index.js
+
+pm2 list
+
+pm2 logs
+
+pm2 startup
+
+pm2 save
+
+curl http://localhost:4000/health
